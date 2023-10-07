@@ -24,18 +24,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 		// サウンド初期化
 		SoundMasterData.Setup();
 		SoundManager.Instance.Initialize();
-
-
-        PlayerManager.Instance.LoadPlayer(Vector3.zero);
-
-        var go = Instantiate(Resources.Load("Map/Map") as GameObject);
-        go.name = "Map";
-        go.transform.position = Vector3.zero;
-
-
-
-        EnemyManager.Instance.SetNest(new Vector3(10, 0, 0));
-        EnemyManager.Instance.SetNest(new Vector3(10, 10, 0));
     }
 
     /// <summary>
@@ -47,7 +35,18 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 		{
 			// タイトル初期化
 			case phase.title_init:
-				break;
+				{
+                    var go = Instantiate(Resources.Load("UI/Title/Title") as GameObject);
+                    go.name = "Title";
+					var title = go.GetComponent<Title>();
+					title.ExitCallBack = () =>
+					{
+                        nowPhase = phase.game_init;
+                    };
+                    go.transform.position = Vector3.zero;
+                }
+				nowPhase = phase.title;
+                break;
 
 			// タイトル
 			case phase.title:
@@ -55,7 +54,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
 			// ゲーム初期化
 			case phase.game_init:
-				break;
+				{
+                    PlayerManager.Instance.LoadPlayer(Vector3.zero);
+
+                    var go = Instantiate(Resources.Load("Map/Map") as GameObject);
+                    go.name = "Map";
+                    go.transform.position = Vector3.zero;
+
+                    EnemyManager.Instance.SetNest(new Vector3(10, 0, 0));
+                    EnemyManager.Instance.SetNest(new Vector3(10, 10, 0));
+
+                    nowPhase = phase.game;
+                }
+                break;
 
 			// ゲームメイン
 			case phase.game:
