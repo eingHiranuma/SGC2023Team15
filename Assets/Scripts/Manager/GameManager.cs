@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
@@ -24,7 +25,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 		SoundMasterData.Setup();
 		SoundManager.Instance.Initialize();
 
-		PlayerManager.Instance.LoadPlayer(Vector3.zero);
+
+        var go = Instantiate(Resources.Load("Map/Map") as GameObject);
+        go.name = "Map";
+        go.transform.position = Vector3.zero;
+
+
+        PlayerManager.Instance.LoadPlayer(Vector3.zero);
 
         EnemyManager.Instance.SetNest(new Vector3(10, 0, 0));
         EnemyManager.Instance.SetNest(new Vector3(10, 10, 0));
