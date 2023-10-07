@@ -36,13 +36,21 @@ public class GunPlayer : MonoBehaviour
     //[SerializeField]
     //TMP_Text hpText;
 
+    public bool isMuteki;
+    [SerializeField]
+    float maxMutekiTime;
+    private float damageIntervalSpent = 0;
+
     public bool canMoveArea;
+    SpriteRenderer sRenderer;
+
 
     private void Start()
     {
         currentHP = maxHP;
         //hpText.SetText(maxHP.ToString());
         GameStat.stat = GameStat.Status.OnArea;
+        sRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -55,11 +63,6 @@ public class GunPlayer : MonoBehaviour
             //Vertical、垂直、縦方向のイメージ
             _input_y = Input.GetAxis("Vertical");
 
-            //Vector3 mousePos = Input.mousePosition;
-            //mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-            //mousePos = new Vector3(mousePos.x,mousePos.y,0);
-            //dbgObj.transform.position = mousePos;
-
 
             //移動の向きなど座標関連はVector3で扱う
             Vector3 velocity = new Vector3(_input_x, _input_y, 0);
@@ -68,7 +71,6 @@ public class GunPlayer : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                //Vector3 diff = mousePos - transform.position;
                 gun.Shot(direction);
             }
 
@@ -84,6 +86,19 @@ public class GunPlayer : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, deg);
             //移動先の座標を設定
             transform.position = destination;
+
+            //無敵時間中なら経過時間をカウント
+            if (isMuteki)
+            {
+                damageIntervalSpent += Time.deltaTime;
+                if(damageIntervalSpent > maxMutekiTime)
+                {
+                    isMuteki = false;
+                    sRenderer.color = Color.red;//元の色に戻す
+                }
+            }
+
+            Debug.Log("isMuteki" + isMuteki);
         }
 
         if(GameStat.stat == GameStat.Status.movingNextArea)
@@ -125,8 +140,12 @@ public class GunPlayer : MonoBehaviour
 
     public void TakeDamage()
     {
+        isMuteki = true; damageIntervalSpent = 0;
+        sRenderer.color = Color.blue; //無敵時間中は色を変更
+
         currentHP--;
 
+        Debug.Log("Player Damaged");
         if(currentHP == 2)
         {
             //兜を脱ぐ
@@ -135,7 +154,7 @@ public class GunPlayer : MonoBehaviour
         {
             //胴体を脱ぐ
         }
-        else
+        else if(currentHP == 0)
         {
             //ゲームオーバー
             Die();
@@ -152,7 +171,7 @@ public class GunPlayer : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.tag == "Enemy" && !isMuteki)
         {
             TakeDamage();
         }
