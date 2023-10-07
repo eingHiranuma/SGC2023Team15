@@ -15,6 +15,8 @@ public class enemy : MonoBehaviour
 
     private SpriteRenderer m_Color;
 
+    private GameObject moneyResource;
+
     //“G‚Ìó‘Ô‚Ì—ñ‹“
     private enum STATE
     {
@@ -35,7 +37,9 @@ public class enemy : MonoBehaviour
 
         m_state = STATE.NONE;
         m_nDamegeCounter = 0;
-   }
+
+        moneyResource = null;
+    }
 
     // Update is called once per frame
     void Update()
@@ -94,6 +98,19 @@ public class enemy : MonoBehaviour
 
         if (m_nLife <= 0)
         {//‘Ì—Í‚ª0ˆÈ‰º
+
+            if(moneyResource == null)
+            {
+                moneyResource = Resources.Load("Money\\Money") as GameObject;
+
+                //“G‚ğ¶¬
+                Instantiate(moneyResource, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.Log("null‚¾‚æ`ƒ“");
+            }
+           
 
             //©•ª‚ğ”jŠü
             Destroy(gameObject);
