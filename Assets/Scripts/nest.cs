@@ -111,8 +111,6 @@ public class nest : MonoBehaviour
 
         //状態をダメージにする
         m_state = STATE.DAMEGE;
-
-        
     }
 
     //色が変わる処理
