@@ -176,4 +176,11 @@ public class GunPlayer : MonoBehaviour
             TakeDamage();
         }
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy" && !isMuteki)
+        {
+            TakeDamage();
+        }
+    }
 }
