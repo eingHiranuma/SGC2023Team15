@@ -12,6 +12,10 @@ public class Panel : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (null == gPlayer)
+        {
+            return;
+        }
         if(collision.gameObject.tag == "GunPlayer")
         {
             gPlayer.canMoveArea = !isExistNest;
