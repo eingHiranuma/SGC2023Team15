@@ -9,6 +9,12 @@
 	</sound>
 
 	<sound>
+		<name>タップ音</name>
+		<id>tap</id>
+		<assetName>Sound/tap</assetName>
+	</sound>
+
+	<sound>
 		<name>スイッチ音</name>
 		<id>switch</id>
 		<assetName>Sound/switch02</assetName>

@@ -17,6 +17,8 @@ public class enemy : MonoBehaviour
 
     private GameObject moneyResource;
 
+    private int m_nCntSound;        //音のなるまでのカウント
+
     //敵の状態の列挙
     private enum STATE
     {
@@ -72,8 +74,24 @@ public class enemy : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, rot, 0.1f);
 
             //敵のプレイヤーの方に移動させる
-            transform.position = Vector2.MoveTowards(transform.position, m_Player.transform.position, m_Speed);
+            transform.position = Vector2.MoveTowards(transform.position, m_Player.transform.position, m_Speed * Time.deltaTime);
+
+            if(m_nCntSound >= 120)
+            {//カウントが120以上になったら
+
+                //サウンドを鳴らす
+                SoundManager.Instance.Play("enemy01");
+
+                //カウントをリセットする
+                m_nCntSound = 0;
+
+            }
+
+            //カウントアップ
+            m_nCntSound++;
         }
+
+        Debug.Log(m_nCntSound);
     }
 
     //ゲームオブジェクトが何かに当たった時に呼び出される

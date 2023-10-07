@@ -44,6 +44,7 @@ public class GunPlayer : MonoBehaviour
     public bool canMoveArea;
     SpriteRenderer sRenderer;
 
+    private int m_nCntSound;        //音のなるまでのカウント
 
     private void Start()
     {
@@ -72,6 +73,8 @@ public class GunPlayer : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 gun.Shot(direction);
+
+                SoundManager.Instance.Play("shot");
             }
 
             //移動距離を計算
@@ -104,6 +107,23 @@ public class GunPlayer : MonoBehaviour
         if(GameStat.stat == GameStat.Status.movingNextArea)
         {
             MoveArea();
+        }
+
+        if(_input_x != 0.0f || _input_y != 0.0f)
+        {//移動している
+
+            if(m_nCntSound >= 60)
+            {//カウントが60以上の時
+
+                //足音
+                SoundManager.Instance.Play("footstep");
+
+                //カウントをリセット
+                m_nCntSound = 0;
+            }
+
+            //カウントアップ
+            m_nCntSound++;
         }
     }
 

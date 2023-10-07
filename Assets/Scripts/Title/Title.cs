@@ -46,6 +46,9 @@ public class Title : MonoBehaviour
 
     private IEnumerator start()
     {
+        // ƒ^ƒbƒv‰¹
+        SoundManager.Instance.Play("tap");
+
         animator.Play("Btn_t", 0, 0);
         yield return new WaitForSeconds(0.5f);
         animator.Play("Title_out", 0, 0);

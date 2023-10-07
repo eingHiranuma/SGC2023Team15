@@ -9,11 +9,25 @@ public class Gun : MonoBehaviour
     public void Shot(Vector3 direction)
     {
         direction = direction.normalized;
-        float rad = Mathf.Atan2(direction.y,direction.x);
-        float deg = Mathf.Rad2Deg * rad;
-        Bullet bullet = Instantiate(bulletPrefab,transform.position,Quaternion.Euler(0,0,deg));
-        bullet.speed = 5.0f;
-        bullet.direction = direction;
+
+        if (direction.x == 0.0f && direction.y == 0.0f && direction.z == 0.0f)
+        {
+            direction.y = 1.0f;
+            float rad = Mathf.Atan2(direction.y, direction.x);
+            float deg = Mathf.Rad2Deg * rad;
+            Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, deg));
+            bullet.speed = 9.0f;
+            bullet.direction = direction;
+        }
+        else
+        {
+            float rad = Mathf.Atan2(direction.y, direction.x);
+            float deg = Mathf.Rad2Deg * rad;
+            Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, deg));
+            bullet.speed = 9.0f;
+            bullet.direction = direction;
+        }
+        
         //Debug.Log(direction);
     }
 
