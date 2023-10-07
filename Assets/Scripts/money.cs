@@ -44,12 +44,12 @@ public class money : MonoBehaviour
             {
                 Add(2);
             }
-
-            //デバッグログ
-            Debug.Log(m_Money);
             
             Destroy(gameObject);
         }
+
+        //デバッグログ
+        Debug.Log(m_Money);
     }
 
     public void Add(int money)

@@ -114,6 +114,8 @@ public class enemy : MonoBehaviour
 
             //Ž©•ª‚ð”jŠü
             Destroy(gameObject);
+
+            return;
         }
     }
 
