@@ -65,14 +65,20 @@ public class GunPlayer : MonoBehaviour
             _input_y = Input.GetAxis("Vertical");
 
 
-            //移動の向きなど座標関連はVector3で扱う
             Vector3 velocity = new Vector3(_input_x, _input_y, 0);
             //ベクトルの向きを取得
             direction = velocity.normalized;
 
+            Vector3 mousePos = Input.mousePosition;
             if (Input.GetMouseButtonDown(0))
             {
-                gun.Shot(direction);
+                mousePos.z = 1;
+                mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+                Debug.Log("mPos:"+mousePos);
+                Vector3 dir = new Vector3 (mousePos.x,mousePos.y,0) - new Vector3(transform.position.x, transform.position.y,0);
+                gun.Shot(dir);
+
+                //gun.Shot(direction);
 
                 SoundManager.Instance.Play("shot");
             }
@@ -86,7 +92,18 @@ public class GunPlayer : MonoBehaviour
             float deg = Mathf.Rad2Deg * rad;
 
             //移動先に向けて回転
-            transform.rotation = Quaternion.Euler(0, 0, deg);
+            //transform.rotation = Quaternion.Euler(0, 0, deg);
+            Vector3 localScale = transform.localScale;
+            if(_input_x > 0)
+            {
+                localScale.x = -1;
+            }
+            else
+            {
+                localScale.x = 1;
+            }
+            transform.localScale = localScale;
+
             //移動先の座標を設定
             transform.position = destination;
 
@@ -101,7 +118,7 @@ public class GunPlayer : MonoBehaviour
                 }
             }
 
-            Debug.Log("isMuteki" + isMuteki);
+            //Debug.Log("isMuteki" + isMuteki);
         }
 
         if(GameStat.stat == GameStat.Status.movingNextArea)

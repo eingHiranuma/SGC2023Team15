@@ -96,7 +96,7 @@ public class enemy : MonoBehaviour
             m_nCntSound++;
         }
 
-        Debug.Log(m_nCntSound);
+        //Debug.Log(m_nCntSound);
     }
 
     //ゲームオブジェクトが何かに当たった時に呼び出される
