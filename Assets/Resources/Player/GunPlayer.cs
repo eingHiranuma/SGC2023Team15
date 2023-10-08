@@ -78,7 +78,9 @@ public class GunPlayer : MonoBehaviour
                 mousePos.z = 1;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
                 Debug.Log("mPos:"+mousePos);
-                Vector3 dir = new Vector3 (mousePos.x,mousePos.y,0) - new Vector3(transform.position.x, transform.position.y,0);
+                Vector3 dir = new Vector3 (mousePos.x,mousePos.y,0) - new Vector3(gun.fireWorldPos.x, gun.fireWorldPos.y,0);
+                gun.fireLocalPos = gun.handgun.transform.localPosition + new Vector3(0.25f, 0.5f, 0);
+                gun.fireWorldPos = gun.transform.TransformPoint(gun.fireLocalPos + new Vector3(0.5f, -0.5f, 0));
                 gun.Shot(dir);
 
                 //gun.Shot(direction);
