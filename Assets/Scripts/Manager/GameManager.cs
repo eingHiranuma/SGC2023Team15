@@ -71,6 +71,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 */
                 }
                 {
+                    PlayerManager.Instance.Init();
                     PlayerManager.Instance.LoadPlayer(Vector3.zero);
 
                     map = Instantiate(Resources.Load("Map/Map") as GameObject);
@@ -89,11 +90,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 			case phase.game:
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    EnemyManager.Instance.Destroy();
-                    PlayerManager.Instance.Destroy();
-
-                    GameObject.Destroy(map);
-                    map = null;
+                    UninitAll();
 
                     nowPhase = phase.title_init;
                 }
@@ -103,6 +100,22 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             case phase.result:
                 break;
         }
+    }
+
+    public void ReturnTitle()
+    {
+        UninitAll();
+
+        nowPhase = phase.title_init;
+    }
+
+    private void UninitAll()
+    {
+        EnemyManager.Instance.Destroy();
+        PlayerManager.Instance.Destroy();
+
+        GameObject.Destroy(map);
+        map = null;
     }
 }
 

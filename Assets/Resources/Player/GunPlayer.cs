@@ -47,7 +47,6 @@ public class GunPlayer : MonoBehaviour
     private int m_nCntSound;        //‰¹‚Ì‚È‚é‚Ü‚Å‚ÌƒJƒEƒ“ƒg
 
 
-    private GameObject gunResource = null;
 
     private void Start()
     {
@@ -56,7 +55,6 @@ public class GunPlayer : MonoBehaviour
         GameStat.stat = GameStat.Status.OnArea;
         sRenderer = GetComponent<SpriteRenderer>();
 
-        gunResource = Resources.Load("Effect/GunFire") as GameObject;
     }
 
     void Update()
@@ -85,8 +83,7 @@ public class GunPlayer : MonoBehaviour
 
                 //gun.Shot(direction);
 
-                var effect  = Instantiate(gunResource);
-                effect.transform.position = transform.position;
+                
 
 
                 SoundManager.Instance.Play("shot");

@@ -16,11 +16,18 @@ public class enemy : MonoBehaviour
     private SpriteRenderer m_Color;
 
     private GameObject moneyResource;
+    private GameObject BloodResource;
 
     private int m_nCntSound;        //音のなるまでのカウント
 
-    //敵の状態の列挙
-    private enum STATE
+    private bool m_bFlag;           //ボスのフラグ
+
+    public bool GetbFlag(){ return m_bFlag; }
+
+    public void SetbFlag(bool flag) {  m_bFlag = flag; }
+
+//敵の状態の列挙
+private enum STATE
     {
         NONE,                      //なんもない
         DAMEGE,                    //ダメージ
@@ -41,6 +48,8 @@ public class enemy : MonoBehaviour
         m_nDamegeCounter = 0;
 
         moneyResource = null;
+
+        m_bFlag = false;
     }
 
     // Update is called once per frame
@@ -55,8 +64,17 @@ public class enemy : MonoBehaviour
         {
             case STATE.NONE:  //通常状態
 
-                //色がもとに戻るよ
-                m_Color.material.color = Color.white;
+                if(m_bFlag == false)
+                {
+                    //色がもとに戻るよ
+                    m_Color.material.color = Color.white;
+                }
+                else
+                {
+                    //色がもとに戻るよ
+                    m_Color.material.color = Color.red;
+                }
+                
                 m_nDamegeCounter = 0;  //カウントをリセット
                 break;
 
@@ -95,8 +113,6 @@ public class enemy : MonoBehaviour
             //カウントアップ
             m_nCntSound++;
         }
-
-        //Debug.Log(m_nCntSound);
     }
 
     //ゲームオブジェクトが何かに当たった時に呼び出される
@@ -132,6 +148,18 @@ public class enemy : MonoBehaviour
             else
             {
                 Debug.Log("nullだよ～ン");
+            }
+
+            if(BloodResource ==  null)
+            {
+                BloodResource = Resources.Load("Blood\\blood_00") as GameObject;
+
+                //血液を生成
+                Instantiate(BloodResource, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.Log("nullです");
             }
            
 
