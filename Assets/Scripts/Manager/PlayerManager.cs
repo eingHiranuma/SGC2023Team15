@@ -36,7 +36,8 @@ public class PlayerManager : SingletonMonoBehaviour<PlayerManager>
     /// </summary>
 	public void Destroy()
     {
-		GameObject.Destroy(player.gameObject);
+		Camera.main.transform.position = new Vector3(0, 1, -10);
+        GameObject.Destroy(player.gameObject);
     }
 }
 
