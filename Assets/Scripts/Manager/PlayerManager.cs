@@ -29,5 +29,14 @@ public class PlayerManager : SingletonMonoBehaviour<PlayerManager>
 		go.transform.position = position;
 		player = go.GetComponent<GunPlayer>();
 	}
+
+
+    /// <summary>
+    /// プレイヤー破棄
+    /// </summary>
+	public void Destroy()
+    {
+		GameObject.Destroy(player.gameObject);
+    }
 }
 

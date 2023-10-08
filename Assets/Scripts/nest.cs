@@ -79,7 +79,8 @@ public class nest : MonoBehaviour
             {//出現するまでの時間と出現するフレームの余りが0のとき
 
                 //敵を生成
-                Instantiate(enemyResource, transform.position, Quaternion.identity);
+                var e = Instantiate(enemyResource, transform.position, Quaternion.identity);
+                e.transform.SetParent(EnemyManager.Instance.EnemyRoot);
 
                 //デバッグログ
                 Debug.Log("敵が出てきた");

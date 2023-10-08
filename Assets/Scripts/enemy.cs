@@ -46,6 +46,11 @@ public class enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (null == m_Player)
+        {
+            return;
+        }
+
         switch (m_state)
         {
             case STATE.NONE:  //’Êíó‘Ô

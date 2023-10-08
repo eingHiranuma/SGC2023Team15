@@ -16,10 +16,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
 	private phase nowPhase = phase.title_init;
 
-	/// <summary>
-	/// Start
-	/// </summary>
-	protected override void Start()
+    private GameObject map = null;
+
+    private GameObject shop = null;
+
+    /// <summary>
+    /// Start
+    /// </summary>
+    protected override void Start()
 	{
 		// サウンド初期化
 		SoundMasterData.Setup();
@@ -54,13 +58,26 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
 			// ゲーム初期化
 			case phase.game_init:
-				{
+                {
+//                    var go = Instantiate(Resources.Load("Canvas") as GameObject);
+//                    go.name = "Shop";
+/*
+//                    var title = go.GetComponent<Title>();
+                    title.ExitCallBack = () =>
+                    {
+                        nowPhase = phase.game_init;
+                    };
+                    go.transform.position = Vector3.zero;
+*/
+                }
+                {
                     PlayerManager.Instance.LoadPlayer(Vector3.zero);
 
-                    var go = Instantiate(Resources.Load("Map/Map") as GameObject);
-                    go.name = "Map";
-                    go.transform.position = Vector3.zero;
+                    map = Instantiate(Resources.Load("Map/Map") as GameObject);
+                    map.name = "Map";
+                    map.transform.position = Vector3.zero;
 
+                    EnemyManager.Instance.Init();
                     EnemyManager.Instance.SetNest(new Vector3(10, 0, 0));
                     EnemyManager.Instance.SetNest(new Vector3(10, 10, 0));
 
@@ -70,7 +87,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
 			// ゲームメイン
 			case phase.game:
-				break;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    EnemyManager.Instance.Destroy();
+                    PlayerManager.Instance.Destroy();
+
+                    GameObject.Destroy(map);
+                    map = null;
+
+                    nowPhase = phase.title_init;
+                }
+                break;
 
             // リザルト
             case phase.result:
