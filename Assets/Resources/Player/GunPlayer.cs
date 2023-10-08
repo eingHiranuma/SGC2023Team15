@@ -46,7 +46,7 @@ public class GunPlayer : MonoBehaviour
 
     private int m_nCntSound;        //‰¹‚Ì‚È‚é‚Ü‚Å‚ÌƒJƒEƒ“ƒg
 
-
+    private GameObject ResultResource;
 
     private void Start()
     {
@@ -54,7 +54,7 @@ public class GunPlayer : MonoBehaviour
         //hpText.SetText(maxHP.ToString());
         GameStat.stat = GameStat.Status.OnArea;
         sRenderer = GetComponent<SpriteRenderer>();
-
+        ResultResource = Resources.Load("Result\\Result") as GameObject;
     }
 
     void Update()
@@ -209,6 +209,7 @@ public class GunPlayer : MonoBehaviour
     {
         GameStat.stat = GameStat.Status.Die;
         Destroy(gameObject);
+        Instantiate(ResultResource, transform.position, Quaternion.identity);
         //gameOverText.enabled = true;
     }
 
