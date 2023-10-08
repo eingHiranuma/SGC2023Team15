@@ -9,6 +9,7 @@ public class nest : MonoBehaviour
     //private GameObject m_enemy;   //敵のゲームオブジェクト
 
     private GameObject enemyResource;
+    private GameObject BossnemyResource;
 
     [SerializeField]
     private int m_nCntSpringUp;   //敵が出現するまでのカウント
@@ -91,6 +92,25 @@ public class nest : MonoBehaviour
                 //出現カウントアップ
                 m_nCntSpawn++;
             }
+        }
+
+        if(m_nCntSpawn == m_MaxSpawn)
+        {
+            BossnemyResource = Resources.Load("Enemy\\BossEnemy") as GameObject;
+            
+            //敵を生成
+            var e = Instantiate(BossnemyResource, transform.position, Quaternion.identity);
+
+            enemy enemy = e.GetComponent<enemy>();
+
+            enemy.SetbFlag(true);
+            e.transform.SetParent(EnemyManager.Instance.EnemyRoot);
+
+            var col = e.transform.Find("enemy").GetComponent<SpriteRenderer>().color;
+            e.transform.Find("enemy").GetComponent<SpriteRenderer>().color = new Color(1.0f, col.g, col.b);
+
+            //出現カウントアップ
+            m_nCntSpawn++;
         }
 
         if (m_nLife <= 0)
