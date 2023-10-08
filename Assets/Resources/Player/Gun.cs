@@ -7,9 +7,9 @@ public class Gun : MonoBehaviour
     [SerializeField]
     Bullet bulletPrefab;
     [SerializeField]
-    GameObject handgun;
-    Vector3 fireLocalPos;
-    Vector3 fireWorldPos;
+    public GameObject handgun;
+    public Vector3 fireLocalPos;
+    public Vector3 fireWorldPos;
     private GameObject gunResource = null;
 
     //Vector3 gunDir;
@@ -21,9 +21,9 @@ public class Gun : MonoBehaviour
     public void Shot(Vector3 direction)
     {
         var effect = Instantiate(gunResource,handgun.transform);
-        fireLocalPos = handgun.transform.localPosition + new Vector3(0.25f, 0.5f, 0);
+        
         effect.transform.localPosition = fireLocalPos;
-        fireWorldPos = transform.TransformPoint(fireLocalPos +  new Vector3(0.5f, -0.5f, 0));
+        
 
         //gunDir = direction;
 
