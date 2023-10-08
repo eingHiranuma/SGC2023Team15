@@ -16,6 +16,7 @@ public class enemy : MonoBehaviour
     private SpriteRenderer m_Color;
 
     private GameObject moneyResource;
+    private GameObject BloodResource;
 
     private int m_nCntSound;        //‰¹‚Ì‚È‚é‚Ü‚Å‚ÌƒJƒEƒ“ƒg
 
@@ -147,6 +148,18 @@ private enum STATE
             else
             {
                 Debug.Log("null‚¾‚æ`ƒ“");
+            }
+
+            if(BloodResource ==  null)
+            {
+                BloodResource = Resources.Load("Blood\\blood_00") as GameObject;
+
+                //ŒŒ‰t‚ğ¶¬
+                Instantiate(BloodResource, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.Log("null‚Å‚·");
             }
            
 
