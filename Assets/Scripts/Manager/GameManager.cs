@@ -89,11 +89,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 			case phase.game:
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    EnemyManager.Instance.Destroy();
-                    PlayerManager.Instance.Destroy();
-
-                    GameObject.Destroy(map);
-                    map = null;
+                    InitAll();
 
                     nowPhase = phase.title_init;
                 }
@@ -103,6 +99,22 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             case phase.result:
                 break;
         }
+    }
+
+    public void ReturnTitle()
+    {
+        InitAll();
+
+        nowPhase = phase.title_init;
+    }
+
+    private void InitAll()
+    {
+        EnemyManager.Instance.Destroy();
+        PlayerManager.Instance.Destroy();
+
+        GameObject.Destroy(map);
+        map = null;
     }
 }
 
