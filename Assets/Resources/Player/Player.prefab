@@ -103,7 +103,9 @@ MonoBehaviour:
   _speed: 3
   gun: {fileID: 1140104147718057809}
   dbgObj: {fileID: 0}
-  maxHP: 0
+  maxHP: 3
+  isMuteki: 0
+  maxMutekiTime: 3
   canMoveArea: 1
 --- !u!50 &2071604119896363996
 Rigidbody2D:
