@@ -6,9 +6,25 @@ public class Gun : MonoBehaviour
 {
     [SerializeField]
     Bullet bulletPrefab;
+    [SerializeField]
+    GameObject handgun;
+    Vector3 fireLocalPos;
+    Vector3 fireWorldPos;
+    private GameObject gunResource = null;
+
     //Vector3 gunDir;
+    private void Start()
+    {
+        gunResource = Resources.Load("Effect/GunFire") as GameObject;
+    }
+
     public void Shot(Vector3 direction)
     {
+        var effect = Instantiate(gunResource,handgun.transform);
+        fireLocalPos = handgun.transform.localPosition + new Vector3(0.25f, 0.5f, 0);
+        effect.transform.localPosition = fireLocalPos;
+        fireWorldPos = transform.TransformPoint(fireLocalPos +  new Vector3(0.5f, -0.5f, 0));
+
         //gunDir = direction;
 
         direction = direction.normalized;
@@ -18,7 +34,7 @@ public class Gun : MonoBehaviour
             direction.y = 1.0f;
             float rad = Mathf.Atan2(direction.y, direction.x);
             float deg = Mathf.Rad2Deg * rad;
-            Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, deg));
+            Bullet bullet = Instantiate(bulletPrefab, fireWorldPos , Quaternion.Euler(0, 0, deg));
             bullet.speed = 9.0f;
             bullet.direction = direction;
         }
@@ -26,7 +42,7 @@ public class Gun : MonoBehaviour
         {
             float rad = Mathf.Atan2(direction.y, direction.x);
             float deg = Mathf.Rad2Deg * rad;
-            Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, deg));
+            Bullet bullet = Instantiate(bulletPrefab, fireWorldPos, Quaternion.Euler(0, 0, deg));
             bullet.speed = 9.0f;
             bullet.direction = direction;
         }
