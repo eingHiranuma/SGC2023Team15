@@ -54,8 +54,17 @@ public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
     /// </summary>
 	public void Destroy()
     {
-        GameObject.Destroy(root.gameObject);
+        if(root != null)
+        {
+            GameObject.Destroy(root.gameObject);
+        }
+      
         nestList.Clear();
+    }
+
+    public void ReMoveNest( nest nest)
+    {
+        nestList.Remove(nest);
     }
 }
 

@@ -20,6 +20,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private GameObject shop = null;
 
+    private GameObject ResultResources;
+
     /// <summary>
     /// Start
     /// </summary>
@@ -72,7 +74,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 }
                 {
                     PlayerManager.Instance.Init();
-                    PlayerManager.Instance.LoadPlayer(Vector3.zero);
+                    PlayerManager.Instance.LoadPlayer(new Vector3(0.0f, 11.0f, 0.0f));
 
                     ShopManager.Instance.Init();
 
@@ -81,8 +83,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     map.transform.position = Vector3.zero;
 
                     EnemyManager.Instance.Init();
-                    EnemyManager.Instance.SetNest(new Vector3(10, 0, 0));
-                    EnemyManager.Instance.SetNest(new Vector3(10, 10, 0));
+                    EnemyManager.Instance.SetNest(new Vector3(-15, 0, 0));
+                    EnemyManager.Instance.SetNest(new Vector3(15, 0, 0));
 
                     nowPhase = phase.game;
                 }
@@ -96,9 +98,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     UninitAll();
 
                     nowPhase = phase.title_init;
-
-                    
-
                 }
                 else if (Input.GetKeyDown(KeyCode.V))
                 {
@@ -108,6 +107,18 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 {
                     ShopManager.Instance.Hide();
                 }
+
+                if(EnemyManager.Instance.NestList.Count <= 0)
+                {
+                    EnemyManager.Instance.Destroy();
+
+                    ResultResources = Resources.Load("Result\\Clear") as GameObject;
+
+                    Instantiate(ResultResources, transform.position, Quaternion.identity);
+
+                    nowPhase = phase.result;
+                }
+
                 break;
 
             // リザルト
@@ -131,6 +142,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         GameObject.Destroy(map);
         map = null;
+
+        Camera.main.transform.position = new Vector3(0.0f, 11.0f, -10.0f);
     }
 }
 

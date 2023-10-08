@@ -35,6 +35,7 @@ public class Gun : MonoBehaviour
             float rad = Mathf.Atan2(direction.y, direction.x);
             float deg = Mathf.Rad2Deg * rad;
             Bullet bullet = Instantiate(bulletPrefab, fireWorldPos , Quaternion.Euler(0, 0, deg));
+            bullet.transform.SetParent(PlayerManager.Instance.PlayerRoot, false);
             bullet.speed = 9.0f;
             bullet.direction = direction;
         }
@@ -43,6 +44,7 @@ public class Gun : MonoBehaviour
             float rad = Mathf.Atan2(direction.y, direction.x);
             float deg = Mathf.Rad2Deg * rad;
             Bullet bullet = Instantiate(bulletPrefab, fireWorldPos, Quaternion.Euler(0, 0, deg));
+            bullet.transform.SetParent(PlayerManager.Instance.PlayerRoot, false);
             bullet.speed = 9.0f;
             bullet.direction = direction;
         }

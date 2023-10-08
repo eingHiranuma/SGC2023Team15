@@ -52,7 +52,7 @@ public class PlayerManager : SingletonMonoBehaviour<PlayerManager>
     /// </summary>
 	public void Destroy()
     {
-		Camera.main.transform.position = new Vector3(0, 1, -10);
+		Camera.main.transform.position = new Vector3(0, 11, 0);
 
         if(player != null)
         {

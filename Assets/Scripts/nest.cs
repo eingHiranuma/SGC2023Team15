@@ -116,6 +116,8 @@ public class nest : MonoBehaviour
         if (m_nLife <= 0)
         {//‘Ì—Í‚ª0ˆÈ‰º
 
+            EnemyManager.Instance.ReMoveNest(this);
+
             //Ž©•ª‚ð”jŠü
             Destroy(gameObject);
 
