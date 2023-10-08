@@ -54,6 +54,11 @@ public class PlayerManager : SingletonMonoBehaviour<PlayerManager>
     {
 		Camera.main.transform.position = new Vector3(0, 1, -10);
         GameObject.Destroy(player.gameObject);
+        if (null != root)
+        {
+            GameObject.Destroy(root.gameObject);
+            root = null;
+        }
     }
 }
 
